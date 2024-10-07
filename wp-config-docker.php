@@ -2,7 +2,11 @@
 
 function getenv_docker($env, $default) {
   if (($val = getenv($env)) !== false) {
-    return $val;
+    if (strlen($val) > 0) {
+      return $val;
+    } else {
+      return $default;
+    }
   }
   else {
     return $default;
