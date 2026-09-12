@@ -43,4 +43,5 @@ sed -e 's/Listen 80/Listen 8080/' < /etc/apache2/ports.conf > /etc/apache2/ports
 mv /etc/apache2/ports.conf.new /etc/apache2/ports.conf
 sed -e 's/VirtualHost \*:80/VirtualHost \*:8080/' < /etc/apache2/sites-available/000-default.conf > /etc/apache2/sites-available/000-default.conf.new
 mv /etc/apache2/sites-available/000-default.conf.new /etc/apache2/sites-available/000-default.conf
+sed -i 's|</VirtualHost>|    UseCanonicalName Off\n    RemoteIPHeader X-Forwarded-For\n    RemoteIPTrustedProxy 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16\n</VirtualHost>|' /etc/apache2/sites-available/000-default.conf
 exec "$@"
